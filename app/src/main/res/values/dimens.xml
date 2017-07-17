@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="recyclerViewPadding">16dp</dimen>
+    <dimen name="LinearLayoutMarginTop">10dp</dimen>
+    <dimen name="rowLinearLayoutPaddingBottom">2dp</dimen>
+    <dimen name="signleLinearLayoutHeight">48dp</dimen>
+
+
+</resources>
