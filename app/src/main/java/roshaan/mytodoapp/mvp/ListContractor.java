@@ -1,4 +1,4 @@
-package roshaan.mytodoapp.list;
+package roshaan.mytodoapp.mvp;
 
 import java.util.ArrayList;
 
@@ -12,23 +12,22 @@ public interface ListContractor {
 
         void sendAddTaskEvent();
         String getNewTask();
-        void setTask(Task task);
+        void notifyDataSetChange();
+        void clearTaskField();
 
     }
 
     interface ListModelInterface {
-        ArrayList<Task> getTasks();
         void addTask(Task task);
         void deleteTask(Task task);
-        void initializeTasks();
+        void initializeTasks(ArrayList<Task> data);
     }
 
     interface ListPresenterInterface {
 
         void addTask();
-        void notifyDataSetChanged();
-        void setAdapter();
         void populateData(ArrayList<Task> data);
+        void notifyUpdateList();
 
     }
 }

@@ -1,4 +1,4 @@
-package roshaan.mytodoapp.list.view;
+package roshaan.mytodoapp.mvp.view;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
@@ -10,16 +10,16 @@ import java.util.ArrayList;
 
 import roshaan.mytodoapp.R;
 import roshaan.mytodoapp.databinding.ActivityListBinding;
-import roshaan.mytodoapp.list.Adapter;
-import roshaan.mytodoapp.list.ListContractor;
-import roshaan.mytodoapp.list.ListPresenter;
-import roshaan.mytodoapp.list.Task;
+import roshaan.mytodoapp.mvp.ListContractor;
+import roshaan.mytodoapp.mvp.ListPresenter;
+import roshaan.mytodoapp.mvp.Task;
 
 public class ListActivity extends AppCompatActivity implements ListContractor.ListViewInterface {
 
     ActivityListBinding binding;
     ListPresenter presenter;
     ArrayList<Task> data;
+    ListPresenter.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,8 @@ public class ListActivity extends AppCompatActivity implements ListContractor.Li
         //it will type cast this activity context into ListViewInterface context
         presenter = new ListPresenter(this);
 
+        data=new ArrayList<>();
+
 
         //setting adapter
         setAdapter();
@@ -36,10 +38,11 @@ public class ListActivity extends AppCompatActivity implements ListContractor.Li
     }
 
     public void setAdapter() {
-        Adapter adapter = new Adapter(data);
+
+        adapter = new ListPresenter.Adapter(data);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
-
+//
         presenter.populateData(data);
     }
 
@@ -58,9 +61,17 @@ public class ListActivity extends AppCompatActivity implements ListContractor.Li
         return String.valueOf(binding.newText.getText());
     }
 
-    //will be called by presenter
+
+
     @Override
-    public void setTask(Task task) {
-        //binding.textView.setText(task.getTask());
+    public void notifyDataSetChange() {
+        System.out.println("notify "+data);
+
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void clearTaskField() {
+        binding.newText.setText(" ");
     }
 }
